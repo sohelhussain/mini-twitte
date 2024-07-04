@@ -85,6 +85,15 @@ app.get("/like/:postid", isLoggedIn, async (req, res)=>{
     await post.save();
     res.redirect('/profile');
 })
+app.get("/edit/:postid", isLoggedIn, async (req, res)=>{
+    let postid = req.params.postid;
+    let post = await postModel.findOne({_id: postid});
+    res.render("edit", {post, user: req.user});
+})
+app.post("/update/:postid", isLoggedIn, async (req, res, next)=>{
+    let post = await postModel.findOneAndUpdate({_id: req.params.postid }, {content: req.body.content}, {new: true});
+    res.redirect("/profile");
+})
 
 function isLoggedIn(req, res, next) {
   if (req.cookies.token === "") return res.send("you must be loggedin first");

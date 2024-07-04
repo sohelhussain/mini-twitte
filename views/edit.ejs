@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>backend</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <div class="w-full h-screen  p-10 bg-zinc-800">
+        <h1 class="text-white text-3xl">haii <%= user.name %></h1>
+        <h2 class="text-3xl mt-3 uppercase text-white">edit your tweet</h2>
+        <form class="mt-4" action="/update/<%= post._id %>" method="post">
+            <textarea placeholder="whats in your mind" class="resize-none block w-52 h-12" name="content" id=""><%= post.content %></textarea>
+            <input class="px-3 py-1 mt-3 text-white bg-blue-400 rounded-md" type="submit" value="update">
+        </form>
+        <a class="text-white px-2 py-1 bg-red-500 absolute top-10 rounded-md right-10" href="/logout">logout</a>
+    </div>
+</body>
+</html>
