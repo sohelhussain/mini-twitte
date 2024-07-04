@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>backend</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <div class="w-full h-screen  p-10 bg-zinc-800">
+        <h1 class="text-white text-3xl">haii <%= user.name %></h1>
+        <h2 class="text-3xl mt-3 uppercase text-white">create your tweet</h2>
+        <form class="mt-4" action="/post" method="post">
+            <textarea placeholder="whats in your mind" class="resize-none block w-52 h-12" name="content" id=""></textarea>
+            <input class="px-3 py-1 mt-3 text-white bg-blue-400 rounded-md" type="submit" value="create">
+        </form>
+        <a class="text-white px-2 py-1 bg-red-500 absolute top-10 rounded-md right-10" href="/logout">logout</a>
+        <hr class="mt-10">
+        <h2 class="text-3xl my-3 uppercase text-white">your tweet</h2>
+        <div class="postcontainer flex flex-wrap gap-3">
+            <% user.posts.forEach(post => { %>
+                <div class="post bg-zinc-600 p-3 w-fit">
+                    <h2 class="text-blue-500">@<%= user.name %></h2>
+                    <h3 class="text-gray-300"><%= post.content %></h3>
+                    <div class="btn flex gap-4 mt-3">
+                        <a class="text-pink-500" href="/like/<%= post._id %>">Like</a>
+                        <a class="text-yellow-500" href="">Edit</a>
+                    </div>
+                </div>
+           <% }) %>
+        </div>
+    </div>
+</body>
+</html>
