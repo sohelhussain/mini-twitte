@@ -18,12 +18,15 @@
         <hr class="mt-10">
         <h2 class="text-3xl my-3 uppercase text-white">your tweet</h2>
         <div class="postcontainer flex flex-wrap gap-3">
-            <% user.posts.forEach(post => { %>
+            <% user.posts.reverse().forEach(post => { %>
                 <div class="post bg-zinc-600 p-3 w-fit">
                     <h2 class="text-blue-500">@<%= user.name %></h2>
                     <h3 class="text-gray-300"><%= post.content %></h3>
-                    <div class="btn flex gap-4 mt-3">
-                        <a class="text-pink-500" href="/like/<%= post._id %>">Like</a>
+                    <small class="mt-2"><%= post.likes.length %></small>
+                    <div class="btn flex gap-4 mt-1">
+                        <a class="text-pink-500" href="/like/<%= post._id %>">
+                            <%= post.likes.indexOf(user._id) === -1 ? "Like" : "Unlike" %>
+                        </a>
                         <a class="text-yellow-500" href="">Edit</a>
                     </div>
                 </div>
