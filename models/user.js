@@ -6,6 +6,10 @@ const userSchema = mongoose.Schema({
     name:String,
     email:String,
     password:String,
+    profil:{
+        type:String,
+        default:"default.jpg"
+    },
     posts:[{type: mongoose.Schema.Types.ObjectId, ref: "post"}],
 });
 

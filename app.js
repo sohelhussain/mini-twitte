@@ -6,12 +6,15 @@ const postModel = require("./models/post");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const app = express();
+const upload = require("./config/multer-config");
 
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+
+
 
 app.get("/", (req, res, next) => {
   res.render("index");
@@ -94,7 +97,12 @@ app.post("/update/:postid", isLoggedIn, async (req, res, next)=>{
     let post = await postModel.findOneAndUpdate({_id: req.params.postid }, {content: req.body.content}, {new: true});
     res.redirect("/profile");
 })
-
+app.post('/file', isLoggedIn, upload.single("profile"), async (req, res, next)=>{
+  let user = await userModel.findOne({email: req.user.email});
+  user.profil = req.file.filename;
+  await user.save();
+  res.redirect("/profile");
+});
 function isLoggedIn(req, res, next) {
   if (req.cookies.token === "") return res.send("you must be loggedin first");
   else {
